@@ -52,11 +52,12 @@ public class GuiVendedor extends javax.swing.JFrame {
         lblTaxaComissao = new javax.swing.JLabel();
         txtSalarioBase = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Vendedor");
 
         btnConsultar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
+        btnConsultar.setMnemonic('c');
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,6 +73,7 @@ public class GuiVendedor extends javax.swing.JFrame {
 
         btnIncluir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
+        btnIncluir.setMnemonic('i');
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
 
@@ -87,6 +89,7 @@ public class GuiVendedor extends javax.swing.JFrame {
 
         btnAlterar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
+        btnAlterar.setMnemonic('a');
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
 
@@ -97,6 +100,7 @@ public class GuiVendedor extends javax.swing.JFrame {
 
         btnExcluir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
+        btnExcluir.setMnemonic('e');
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
 
@@ -105,6 +109,7 @@ public class GuiVendedor extends javax.swing.JFrame {
 
         btnSair.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
+        btnSair.setMnemonic('s');
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
