@@ -36,7 +36,7 @@ public class GuiCliente extends javax.swing.JFrame {
         lblLimiteCredito = new javax.swing.JLabel();
         lblCEP = new javax.swing.JLabel();
         lblUF = new javax.swing.JLabel();
-        lblLimiteDisponivel = new javax.swing.JLabel();
+        lbl_FixoLimiteDisponivel = new javax.swing.JLabel();
         btnConsultar = new javax.swing.JButton();
         btnIncluir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
@@ -49,11 +49,12 @@ public class GuiCliente extends javax.swing.JFrame {
         txtTelefone = new javax.swing.JTextField();
         txtLimiteCredito = new javax.swing.JTextField();
         txtCEP = new javax.swing.JTextField();
-        txtLimiteDisponivel = new javax.swing.JTextField();
         cbxUF = new javax.swing.JComboBox<>();
+        lblLimiteDisponivel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Cliente");
+        setResizable(false);
 
         lblCPF.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblCPF.setText("CPF");
@@ -86,8 +87,8 @@ public class GuiCliente extends javax.swing.JFrame {
         lblUF.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblUF.setText("UF");
 
-        lblLimiteDisponivel.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lblLimiteDisponivel.setText("Limte Disponível");
+        lbl_FixoLimiteDisponivel.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbl_FixoLimiteDisponivel.setText("Limte Disponível");
 
         btnConsultar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
@@ -148,10 +149,12 @@ public class GuiCliente extends javax.swing.JFrame {
         txtCEP.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtCEP.setEnabled(false);
 
-        txtLimiteDisponivel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtLimiteDisponivel.setEnabled(false);
-
         cbxUF.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        cbxUF.setEnabled(false);
+
+        lblLimiteDisponivel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        lblLimiteDisponivel.setEnabled(false);
+        lblLimiteDisponivel.setMinimumSize(new java.awt.Dimension(4, 4));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -174,14 +177,6 @@ public class GuiCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtDDD, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)
-                        .addComponent(lblCEP)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
@@ -200,18 +195,25 @@ public class GuiCliente extends javax.swing.JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(txtLimiteCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(198, 198, 198)
-                                            .addComponent(lblLimiteDisponivel))
+                                            .addComponent(lbl_FixoLimiteDisponivel))
                                         .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(7, 7, 7)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(txtLimiteDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(lblUF)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(cbxUF, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(lblUF)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(cbxUF, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(txtEndereco)
                                 .addComponent(txtNome)))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblLimiteDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(txtDDD, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(57, 57, 57)
+                            .addComponent(lblCEP)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblCPF, lblCidade, lblEndereco, lblLimiteCredito, lblNome, lblTelefone});
@@ -248,10 +250,10 @@ public class GuiCliente extends javax.swing.JFrame {
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(txtLimiteDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblLimiteCredito)
-                    .addComponent(lblLimiteDisponivel)
-                    .addComponent(txtLimiteCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl_FixoLimiteDisponivel)
+                    .addComponent(txtLimiteCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLimiteDisponivel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(btnSair)
@@ -267,6 +269,7 @@ public class GuiCliente extends javax.swing.JFrame {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAlterar, btnConsultar, btnExcluir, btnIncluir, btnSair});
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
@@ -328,13 +331,13 @@ public class GuiCliente extends javax.swing.JFrame {
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblUF;
+    private javax.swing.JLabel lbl_FixoLimiteDisponivel;
     private javax.swing.JTextField txtCEP;
     private javax.swing.JFormattedTextField txtCPF;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtDDD;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtLimiteCredito;
-    private javax.swing.JTextField txtLimiteDisponivel;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
