@@ -18,6 +18,7 @@ public class Cliente extends Pessoa {
         this.limiteCred = limiteCred;
         limiteDisp = limiteCred;
         pedidos = new ArrayList<Pedido>();
+        
     }
 
     public double getLimiteCred() {
