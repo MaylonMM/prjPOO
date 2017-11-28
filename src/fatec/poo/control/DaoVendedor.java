@@ -35,6 +35,7 @@ public class DaoVendedor {
             ps.setDouble(9, vendedor.getSalarioBase());
             ps.setDouble(10, vendedor.getComissao());
             
+            ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
@@ -44,7 +45,7 @@ public class DaoVendedor {
         PreparedStatement ps = null;
         
         try {
-            ps = conn.prepareStatement("UPDATE TB_VENDEDOR SET NOME = ? AND ENDERECO = ? AND CIDADE = ? AND CEP = ? AND UF = ? AND DDD = ? AND TELEONE = ? AND SALARIOBASE = ? AND COMISSAO = ? WHERE CPF = ?");
+            ps = conn.prepareStatement("UPDATE TB_VENDEDOR SET NOME = ?, ENDERECO = ?, CIDADE = ?, CEP = ?, UF = ?, DDD = ?, TELEFONE = ?, SALARIOBASE = ?, COMISSAO = ? WHERE CPF = ?");
             ps.setString(1, vendedor.getNome());
             ps.setString(2, vendedor.getEndereco());
             ps.setString(3, vendedor.getCidade());
@@ -56,6 +57,7 @@ public class DaoVendedor {
             ps.setDouble(9, vendedor.getComissao());
             ps.setString(10, vendedor.getCpf());
             
+            ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }

@@ -5,6 +5,11 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoProduto;
+import fatec.poo.model.Produto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 0030481611020
@@ -46,6 +51,14 @@ public class GuiProduto extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Produto");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         lblCodigo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblCodigo.setText("Código");
@@ -80,24 +93,44 @@ public class GuiProduto extends javax.swing.JFrame {
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setMnemonic('c');
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnIncluir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnIncluir.setMnemonic('i');
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setMnemonic('a');
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setMnemonic('e');
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnSair.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
@@ -186,10 +219,156 @@ public class GuiProduto extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        conexao.fecharConexao();
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0){
+            daoProduto.excluir(produto); 
+            
+            txtCodigo.setText("");
+            txtDescricao.setText("");
+            txtEstoqueMinimo.setText("");
+            txtPrecoUnitario.setText("");
+            txtQtdeDisponivel.setText("");
+            
+            txtCodigo.setEnabled(true); 
+            txtDescricao.setEnabled(false);
+            txtEstoqueMinimo.setEnabled(false);
+            txtPrecoUnitario.setEnabled(false);
+            txtQtdeDisponivel.setEnabled(false);
+            
+            txtCodigo.requestFocus();
+            btnConsultar.setEnabled(true);
+            btnIncluir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        }    
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){//Sim
+           produto.setDescricao(txtDescricao.getText());
+           produto.setQtdeDisponivel(Integer.parseInt(txtQtdeDisponivel.getText()));
+           produto.setPrecoUnit(Double.parseDouble(txtPrecoUnitario.getText().replace(",", ".")));
+           produto.setEstoqueMin(Integer.parseInt(txtEstoqueMinimo.getText()));
+           daoProduto.alterar(produto);
+        } 
+        
+        txtCodigo.setText("");
+        txtDescricao.setText("");
+        txtEstoqueMinimo.setText("");
+        txtPrecoUnitario.setText("");
+        txtQtdeDisponivel.setText("");
+        
+        txtCodigo.setEnabled(true); 
+        txtDescricao.setEnabled(false);
+        txtEstoqueMinimo.setEnabled(false);
+        txtPrecoUnitario.setEnabled(false);
+        txtQtdeDisponivel.setEnabled(false);
+        
+        txtCodigo.requestFocus();
+        btnConsultar.setEnabled(true);
+        btnIncluir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        produto = new Produto(Integer.parseInt(txtCodigo.getText()), txtDescricao.getText());
+        produto.setEstoqueMin(Integer.parseInt(txtEstoqueMinimo.getText()));
+        produto.setPrecoUnit(Double.parseDouble(txtPrecoUnitario.getText().replace(",", ".")));
+        produto.setQtdeDisponivel(Integer.parseInt(txtQtdeDisponivel.getText()));
+        daoProduto.inserir(produto);
+         
+        txtCodigo.setText("");
+        txtDescricao.setText("");
+        txtEstoqueMinimo.setText("");
+        txtPrecoUnitario.setText("");
+        txtQtdeDisponivel.setText("");
+        
+        btnIncluir.setEnabled(false);
+        txtCodigo.setEnabled(true); 
+        txtDescricao.setEnabled(false);
+        txtEstoqueMinimo.setEnabled(false);
+        txtPrecoUnitario.setEnabled(false);
+        txtQtdeDisponivel.setEnabled(false);
+        txtCodigo.requestFocus();
+        
+        btnConsultar.setEnabled(true);
+        btnIncluir.setEnabled(false);
+    }//GEN-LAST:event_btnIncluirActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        int intCodProd = 0;
+        boolean isNumber = false;
+    
+        try {
+            intCodProd =  Integer.parseInt(txtCodigo.getText());
+            isNumber = true;
+            } catch (NumberFormatException e) {	  
+                isNumber = false;
+            }        
+        
+        if (!isNumber) {
+            JOptionPane.showMessageDialog(null,"Código inválido");
+            txtCodigo.requestFocus();
+        } else { 
+    
+                produto = null;
+                produto = daoProduto.consultar(Integer.parseInt(txtCodigo.getText()));
+       
+                if (produto == null){
+                    txtCodigo.setEnabled(false);
+                    txtDescricao.setEnabled(true);
+                    txtEstoqueMinimo.setEnabled(true);
+                    txtPrecoUnitario.setEnabled(true);
+                    txtQtdeDisponivel.setEnabled(true);
+                    txtDescricao.requestFocus();
+           
+                    btnConsultar.setEnabled(false);
+                    btnIncluir.setEnabled(true);
+                    btnAlterar.setEnabled(false);
+                    btnExcluir.setEnabled(false);
+                }
+                else{
+                    txtDescricao.setText(produto.getDescricao());
+                    txtQtdeDisponivel.setText(String.valueOf(produto.getQtdeDisponivel()));
+                    txtPrecoUnitario.setText(String.valueOf(produto.getPrecoUnit()));
+                    txtEstoqueMinimo.setText(String.valueOf(produto.getEstoqueMin()));
+       
+                    txtCodigo.setEnabled(false); 
+                    txtDescricao.setEnabled(true);
+                    txtEstoqueMinimo.setEnabled(true);
+                    txtPrecoUnitario.setEnabled(true);
+                    txtQtdeDisponivel.setEnabled(true);
+                    txtDescricao.requestFocus();
+          
+                    btnConsultar.setEnabled(false);
+                    btnIncluir.setEnabled(false);
+                    btnAlterar.setEnabled(true);
+                    btnExcluir.setEnabled(true);
+                    }
+            }
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conexao = new Conexao("BD1611029","BD1611029");
+        conexao.setDriver("oracle.jdbc.driver.OracleDriver");
+        conexao.setConnectionString("jdbc:oracle:thin:@Apolo:1521:xe");
+        daoProduto = new DaoProduto(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        conexao.fecharConexao();
+        dispose();
+    }//GEN-LAST:event_formWindowClosing
+      
+    
     /**
      * @param args the command line arguments
      */
@@ -242,4 +421,7 @@ public class GuiProduto extends javax.swing.JFrame {
     private javax.swing.JTextField txtPrecoUnitario;
     private javax.swing.JTextField txtQtdeDisponivel;
     // End of variables declaration//GEN-END:variables
+    private DaoProduto daoProduto=null;
+    private Produto produto=null;
+    private Conexao conexao=null;
 }

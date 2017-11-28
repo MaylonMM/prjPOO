@@ -50,4 +50,7 @@ public class Produto {
         this.estoqueMin = estoqueMin;
     }
        
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 }

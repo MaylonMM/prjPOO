@@ -35,6 +35,7 @@ public class DaoCliente {
             ps.setDouble(9, cliente.getLimiteCred());
             ps.setDouble(10, cliente.getLimiteDisp());
             
+            ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
@@ -44,7 +45,7 @@ public class DaoCliente {
         PreparedStatement ps = null;
         
         try {
-            ps = conn.prepareStatement("UPDATE TB_CLIENTE SET NOME = ? AND ENDERECO = ? AND CIDADE = ? AND CEP = ? AND UF = ? AND DDD = ? AND TELEONE = ? AND LIMITECRED = ? AND LIMITEDISP = ? WHERE CPF = ?");
+            ps = conn.prepareStatement("UPDATE TB_CLIENTE SET NOME = ?, ENDERECO = ?, CIDADE = ?, CEP = ?, UF = ?, DDD = ?, TELEFONE = ?, LIMITECRED = ?, LIMITEDISP = ? WHERE CPF = ?");
             ps.setString(1, cliente.getNome());
             ps.setString(2, cliente.getEndereco());
             ps.setString(3, cliente.getCidade());
@@ -56,6 +57,7 @@ public class DaoCliente {
             ps.setDouble(9, cliente.getLimiteDisp());
             ps.setString(10, cliente.getCpf());
             
+            ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
